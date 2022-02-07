@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
+import { ActivatedRoute } from '@angular/router';
 import { IAgencie } from 'src/app/interfaces/agencies.interface';
 import { AgenciesService } from 'src/app/services/agencies.service';
 
@@ -14,13 +15,14 @@ export class ListAgenciesComponent implements OnInit {
 
   listAgencies: IAgencie[] = [];
 
-  constructor(private agenciesService: AgenciesService) { }
+  constructor(private agenciesService: AgenciesService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.data.subscribe(({ agencies }) => {
+      this.listAgencies = agencies;
+    });
+  }
 
   ngOnInit(): void {
-    this.agenciesService.list().subscribe(response => {
-      this.listAgencies = response.data as IAgencie[];
-      this.updateMapEvent.emit({ lat: this.listAgencies[0].lon, lng: this.listAgencies[0].lat });
-    })
+    this.updateMapEvent.emit({ lat: this.listAgencies[0].lon, lng: this.listAgencies[0].lat });
   }
 
   showInfo(change: MatSelectionListChange) {

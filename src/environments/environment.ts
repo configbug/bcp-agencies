@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: null,
+  expirationTimeApi: 30000,
 };
 
 /*
