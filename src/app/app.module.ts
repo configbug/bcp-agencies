@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgxJdenticonModule } from 'ngx-jdenticon';
+
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,6 +36,7 @@ import { MapAgenciesComponent } from './components/map-agencies/map-agencies.com
     HttpClientModule,
     HttpClientJsonpModule,
     ReactiveFormsModule,
+    NgxJdenticonModule,
     GoogleMapsModule,
 
     MatListModule,
