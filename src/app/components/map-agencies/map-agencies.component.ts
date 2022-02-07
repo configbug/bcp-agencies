@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
@@ -7,36 +7,25 @@ import { catchError, map, Observable, of } from 'rxjs';
   templateUrl: './map-agencies.component.html',
   styleUrls: ['./map-agencies.component.scss']
 })
-export class MapAgenciesComponent implements OnInit {
+export class MapAgenciesComponent implements OnInit, OnChanges {
 
-  display: any;
-  center: google.maps.LatLngLiteral = { lat: -71.950088, lng: -13.523304 };
-  zoom = 4;
+  @Input() geolocation!: google.maps.LatLngLiteral;
+
+  center!: google.maps.LatLngLiteral;
+  zoom = 17;
 
   markerOptions: google.maps.MarkerOptions = { draggable: false };
-  markerPositions: google.maps.LatLngLiteral[] = [{ lat: -71.950088, lng: -13.523304 }];
-
-  addMarker(event: google.maps.MapMouseEvent) {
-    if (event.latLng) {
-      this.markerPositions.push(event.latLng.toJSON());
-    }
-  }
-
-  moveMap(event: google.maps.MapMouseEvent) {
-    if (event.latLng) {
-      this.center = (event.latLng.toJSON());
-    }
-  }
-
-  move(event: google.maps.MapMouseEvent) {
-    if (event.latLng) {
-      this.display = event.latLng.toJSON();
-    }
-  }
+  markerPosition!: google.maps.LatLngLiteral;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngOnChanges() {
+    console.log("PARENT TO CHILD", this.geolocation);
+    this.center = this.geolocation;
+    this.markerPosition = this.geolocation;
   }
 
 }

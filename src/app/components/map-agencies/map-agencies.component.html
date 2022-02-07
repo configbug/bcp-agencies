@@ -1,8 +1,4 @@
-<google-map height="600px" width="100%" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)"
-  (mapMousemove)="move($event)">
-
-  <map-marker *ngFor="let markerPosition of markerPositions" [position]="markerPosition" [options]="markerOptions">
+<google-map height="600px" width="100%" [center]="center" [zoom]="zoom">
+  <map-marker [position]="markerPosition" [options]="markerOptions">
   </map-marker>
 </google-map>
-
-<div>Latitude: {{display?.lat}} ------ Longitude: {{display?.lng}}</div>

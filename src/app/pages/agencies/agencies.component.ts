@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgenciesComponent implements OnInit {
 
+  geolocation!: google.maps.LatLngLiteral;
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  updateMap(item: any) {
+    console.log('PARENT', item);
+    this.geolocation = item;
   }
 
 }

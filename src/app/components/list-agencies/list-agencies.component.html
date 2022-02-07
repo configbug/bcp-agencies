@@ -1,1 +1,11 @@
-<p>list-agencies works!</p>
+<mat-selection-list *ngIf="listAgencies && listAgencies.length > 0" #agencies [multiple]="false"
+  (selectionChange)="showInfo($event)">
+  <mat-list-option *ngFor="let agencie of listAgencies" [value]="agencie">
+    <img matListAvatar src="..." alt="...">
+    <h3 matLine class="title-agencie"> {{agencie.agencia}} </h3>
+    <p matLine class="subtitle-agencie">
+      <span> {{agencie.direccion}} </span>
+    </p>
+    <a matLine href="...">Más detalles</a>
+  </mat-list-option>
+</mat-selection-list>
