@@ -10,6 +10,7 @@ import { AgenciesService } from 'src/app/services/agencies.service';
 })
 export class ListAgenciesComponent implements OnInit {
   @Output() updateMapEvent = new EventEmitter<{ lat: number; lng: number }>();
+  @Output() viewAgencieEvent = new EventEmitter<IAgencie>();
 
   listAgencies: IAgencie[] = [];
 
@@ -27,5 +28,9 @@ export class ListAgenciesComponent implements OnInit {
     let geolocation = { lat: obj.lon, lng: obj.lat }
     console.log("CHILD TO PARENT", geolocation);
     this.updateMapEvent.emit(geolocation);
+  }
+
+  viewAgencie(agencie: IAgencie) {
+    this.viewAgencieEvent.emit(agencie);
   }
 }

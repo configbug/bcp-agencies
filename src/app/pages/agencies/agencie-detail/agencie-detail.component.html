@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <form id="formMaintenance" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <div *ngIf="agencieRequest" class="row">
+      <div class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Departamento</mat-label>
+          <input readonly="true" matInput placeholder="Departamento" formControlName="departamento" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Provincia</mat-label>
+          <input readonly="true" matInput placeholder="Provincia" formControlName="provincia" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Distrito</mat-label>
+          <input readonly="true" matInput placeholder="Distrito" formControlName="distrito" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección</mat-label>
+          <input matInput placeholder="Dirección" formControlName="direccion" required>
+          <mat-error *ngIf="errorHandling('direccion', 'required')">
+            La <strong>dirección</strong> de agencia es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="errorHandling('direccion', 'minlength')">
+            Mínimo 10 carácteres para el nombre de <strong>dirección</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('direccion', 'maxlength')">
+            Mínimo 60 carácteres para el nombre de <strong>dirección</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Latitud</mat-label>
+          <input matInput placeholder="Latitud" formControlName="latitud" required>
+          <mat-error *ngIf="errorHandling('latitud', 'required')">
+            La <strong>latitud</strong> de agencia es obligatorio.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Longitud</mat-label>
+          <input matInput placeholder="Longitud" formControlName="longitud" required>
+          <mat-error *ngIf="errorHandling('longitud', 'required')">
+            La <strong>longitud</strong> de agencia es obligatorio.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+  </form>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close (click)="cancel()">Cancelar</button>
+  <button type="submit" form="formMaintenance" mat-button cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>
