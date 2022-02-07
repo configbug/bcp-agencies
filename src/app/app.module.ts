@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+
+import { GoogleMapsModule } from '@angular/google-maps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +28,9 @@ import { MapAgenciesComponent } from './components/map-agencies/map-agencies.com
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    HttpClientJsonpModule,
     ReactiveFormsModule,
+    GoogleMapsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
