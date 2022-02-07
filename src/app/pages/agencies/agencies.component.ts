@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SplashScreenStateService } from 'src/app/core/services/splash-screen-state.service';
 
 @Component({
   selector: 'app-agencies',
@@ -8,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class AgenciesComponent implements OnInit {
 
   geolocation!: google.maps.LatLngLiteral;
-  constructor() { }
+  constructor(private splashScreenStateService: SplashScreenStateService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.splashScreenStateService.stop();
+    }, 4000);
+  }
 
   updateMap(item: any) {
     console.log('PARENT', item);

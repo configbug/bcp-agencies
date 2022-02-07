@@ -20,6 +20,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MapAgenciesComponent } from './components/map-agencies/map-agencies.component';
 
+import { SplashComponent } from './core/components/splash/splash.component';
+import { SplashScreenStateService } from './core/services/splash-screen-state.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +30,8 @@ import { MapAgenciesComponent } from './components/map-agencies/map-agencies.com
     ListAgenciesComponent,
     HeaderComponent,
     FooterComponent,
-    MapAgenciesComponent
+    MapAgenciesComponent,
+    SplashComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { MapAgenciesComponent } from './components/map-agencies/map-agencies.com
     MatButtonModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [
+    SplashScreenStateService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
