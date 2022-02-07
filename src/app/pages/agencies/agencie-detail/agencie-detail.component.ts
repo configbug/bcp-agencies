@@ -69,10 +69,9 @@ export class AgencieDetailComponent implements OnInit {
   ngOnInit(): void {
     const pr = this.agencieRequest;
     this.form = this.fb.group({
-      agencia: [pr.agencia],
-      distrito: [pr.distrito],
-      provincia: [pr.provincia],
-      departamento: [pr.departamento],
+      departamento: [{ value: pr.agencia, disabled: true }],
+      provincia: [{ value: pr.agencia, disabled: true }],
+      distrito: [{ value: pr.agencia, disabled: true }],
       direccion: [pr.direccion, [Validators.required, Validators.minLength(10), Validators.maxLength(60)]],
       latitud: [pr.lat, [Validators.required]],
       longitud: [pr.lon, [Validators.required]],

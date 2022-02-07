@@ -17,7 +17,7 @@ export class AgenciesComponent implements OnInit {
   ngOnInit(): void {
     setTimeout(() => {
       this.splashScreenStateService.stop();
-    }, 1000);
+    }, 2000);
   }
 
   updateMap(item: any) {
