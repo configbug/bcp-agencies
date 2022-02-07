@@ -32,8 +32,26 @@ export class AgenciesService {
     );
   }
 
-  get(idAgencie?: string): Observable<IResponse> {
-    return this.http.get<IResponse>(`${this.url}?idAgencie=${idAgencie}`).pipe();
+  get(agencie?: string): Observable<IResponse> {
+    return this.http.get<IResponse>(`${this.url}?agencie=${agencie}`).pipe(
+      map((response: IResponse) => {
+        const currentAgencie = this.getAgenciesFromLocalStorage().filter(ag => ag.agencia === agencie);
+        if (currentAgencie?.length === 1) {
+          return {
+            isSuccess: true,
+            errorCode: "",
+            errorMessage: "",
+            data: currentAgencie[0]
+          }
+        } else {
+          return {
+            isSuccess: false,
+            errorCode: "404",
+            errorMessage: `No existe la agencia "${agencie}"`,
+          }
+        }
+      })
+    );
   }
 
   add(agencie: IAgencie): Observable<IResponse> {

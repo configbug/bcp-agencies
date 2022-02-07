@@ -31,10 +31,7 @@ export class AgenciesComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AgencieDetailComponent, { data: { ...agencie } });
 
-    dialogRef.afterClosed()
-      .subscribe(result => {
-        // this.listarCampanias()
-      });
+    dialogRef.afterClosed().subscribe(result => { });
   }
 
 }

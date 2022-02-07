@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { IAgencie } from 'src/app/interfaces/agencies.interface';
+import { IResponse } from 'src/app/interfaces/response.interface';
 import { AgenciesService } from 'src/app/services/agencies.service';
+import { TGeolocation } from 'src/app/types/geolocation.type';
 
 @Component({
   selector: 'app-list-agencies',
@@ -10,7 +12,7 @@ import { AgenciesService } from 'src/app/services/agencies.service';
   styleUrls: ['./list-agencies.component.scss']
 })
 export class ListAgenciesComponent implements OnInit {
-  @Output() updateMapEvent = new EventEmitter<{ lat: number; lng: number }>();
+  @Output() updateMapEvent = new EventEmitter<google.maps.LatLngLiteral>();
   @Output() viewAgencieEvent = new EventEmitter<IAgencie>();
 
   listAgencies: IAgencie[] = [];
@@ -33,6 +35,9 @@ export class ListAgenciesComponent implements OnInit {
   }
 
   viewAgencie(agencie: IAgencie) {
-    this.viewAgencieEvent.emit(agencie);
+    this.agenciesService.get(agencie.agencia).subscribe((response: IResponse) => {
+      console.log('PROVIENCE DE RESPONSE', response);
+      this.viewAgencieEvent.emit(response.data as IAgencie);
+    })
   }
 }
