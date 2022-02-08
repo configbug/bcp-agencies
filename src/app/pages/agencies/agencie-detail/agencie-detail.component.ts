@@ -18,7 +18,6 @@ export class AgencieDetailComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IAgencie, private dialogRef: MatDialogRef<AgencieDetailComponent>,
     public fb: FormBuilder, private agenciesService: AgenciesService) {
-    console.log('DATA ENTRANTE : ', JSON.stringify(data));
     this.isNewRecord = data.agencia ? false : true;
     if (this.isNewRecord) {
       this.title = `NUEVA AGENCIA`;
@@ -57,9 +56,14 @@ export class AgencieDetailComponent implements OnInit {
           console.log('GUARDADO : ', response);
         })
     } else {
+
+      for (const prop in this.form.controls) {
+        this.form.value[prop] = this.form.controls[prop].value;
+      }
+
       this.agenciesService.update(this.form.value)
         .subscribe(response => {
-          console.log('GUARDADO : ', response);
+          console.log('ACTUALIZADO : ', response);
         })
     }
 
@@ -69,12 +73,13 @@ export class AgencieDetailComponent implements OnInit {
   ngOnInit(): void {
     const pr = this.agencieRequest;
     this.form = this.fb.group({
-      departamento: [{ value: pr.agencia, disabled: true }],
-      provincia: [{ value: pr.agencia, disabled: true }],
-      distrito: [{ value: pr.agencia, disabled: true }],
+      agencia: [pr.agencia],
+      departamento: [{ value: pr.departamento, disabled: true }],
+      provincia: [{ value: pr.provincia, disabled: true }],
+      distrito: [{ value: pr.distrito, disabled: true }],
       direccion: [pr.direccion, [Validators.required, Validators.minLength(10), Validators.maxLength(60)]],
-      latitud: [pr.lat, [Validators.required]],
-      longitud: [pr.lon, [Validators.required]],
+      lat: [pr.lat, [Validators.required]],
+      lon: [pr.lon, [Validators.required]],
     })
   }
 

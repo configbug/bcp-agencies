@@ -23,7 +23,6 @@ export class MapAgenciesComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log("PARENT TO CHILD", this.geolocation);
     this.center = this.geolocation;
     this.markerPosition = this.geolocation;
   }

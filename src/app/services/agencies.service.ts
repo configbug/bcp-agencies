@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, map, Observable } from 'rxjs';
+import { EMPTY, map, Observable, of } from 'rxjs';
 import { IResponse } from '../interfaces/response.interface';
 import { environment } from 'src/environments/environment';
 import { IAgencie } from '../interfaces/agencies.interface';
@@ -21,15 +21,7 @@ export class AgenciesService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<IResponse> {
-    return this.http.get<IResponse>(`${this.url}`).pipe(
-      map((response: IResponse) => {
-        if (response?.data) {
-          this.setAgencies(response.data as IAgencie[]);
-          this.setStartTimeApi(Date.now());
-        }
-        return response
-      })
-    );
+    return this.http.get<IResponse>(`${this.url}`).pipe();
   }
 
   get(agencie?: string): Observable<IResponse> {
@@ -78,7 +70,25 @@ export class AgenciesService {
       lat: Number(agencie.lat),
       lon: Number(agencie.lon),
     }
-    return this.http.post<IResponse>(`${this.url}`, request, { headers: this.headers }).pipe();
+    // return this.http.post<IResponse>(`${this.url}`, request, { headers: this.headers }).pipe();
+    const listAgencies = this.getAgenciesFromLocalStorage();
+    let listAgenciesUpdate: IAgencie[] = [];
+
+    listAgencies.map((ag, i) => {
+      if (ag.agencia === agencie.agencia) {
+        listAgenciesUpdate.push(request)
+      } else {
+        listAgenciesUpdate.push(ag)
+      }
+    });
+
+    this.setAgencies(listAgenciesUpdate);
+
+    return of({
+      isSuccess: true,
+      errorCode: "",
+      errorMessage: "",
+    })
   }
 
   verifyLocalStorageDataKey(key: string): boolean {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SplashScreenStateService } from 'src/app/core/services/splash-screen-state.service';
 import { IAgencie } from 'src/app/interfaces/agencies.interface';
+import { IResponse } from 'src/app/interfaces/response.interface';
+import { AgenciesService } from 'src/app/services/agencies.service';
 import { AgencieDetailComponent } from './agencie-detail/agencie-detail.component';
 
 @Component({
@@ -12,7 +14,8 @@ import { AgencieDetailComponent } from './agencie-detail/agencie-detail.componen
 export class AgenciesComponent implements OnInit {
 
   geolocation!: google.maps.LatLngLiteral;
-  constructor(public dialog: MatDialog, private splashScreenStateService: SplashScreenStateService) { }
+  agencies!: IAgencie[];
+  constructor(public dialog: MatDialog, private agenciesService: AgenciesService, private splashScreenStateService: SplashScreenStateService) { }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -20,18 +23,15 @@ export class AgenciesComponent implements OnInit {
     }, 2000);
   }
 
-  updateMap(item: any) {
-    console.log('PARENT', item);
+  updateMap(item: google.maps.LatLngLiteral) {
     this.geolocation = item;
   }
 
   viewAgencie(agencie: IAgencie) {
-    console.log('AGENCIE : ', agencie);
-
-
     const dialogRef = this.dialog.open(AgencieDetailComponent, { data: { ...agencie } });
-
-    dialogRef.afterClosed().subscribe(result => { });
+    dialogRef.afterClosed().subscribe((result: IAgencie) => {
+      this.agencies = this.agenciesService.getAgenciesFromLocalStorage()
+    });
   }
 
 }

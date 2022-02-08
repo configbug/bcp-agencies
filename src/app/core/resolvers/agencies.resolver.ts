@@ -19,12 +19,12 @@ export class AgenciesResolver implements Resolve<any> {
     const existLocalAgencies = this.agenciesService.verifyLocalStorageDataKey('agencies');
 
     if (!existLocalAgencies) {
-      console.log('NO EXISTE CURRENCIES COMO DATA LOCAL')
+      console.log('NO EXISTE AGENCIAS COMO DATA LOCAL')
       return this.agenciesService.list().pipe(
         map((response: IResponse) => response.data as IAgencie[])
       )
     } else {
-      console.log('EXISTE CURRENCIES COMO DATA LOCAL (API), SE VERIFICA LA EXISTENCIA DE FECHA DE VIGENCIA DE DATA')
+      console.log('EXISTE AGENCIAS COMO DATA LOCAL (API), SE VERIFICA LA EXISTENCIA DE FECHA DE VIGENCIA DE DATA')
 
       const startTimeApi = this.agenciesService.getStartTimeApi();
 
@@ -35,7 +35,11 @@ export class AgenciesResolver implements Resolve<any> {
         if (expiredApi) {
           console.log('SI EXPIRÓ')
           return this.agenciesService.list().pipe(
-            map((response: IResponse) => response.data as IAgencie[])
+            map((response: IResponse) => {
+              this.agenciesService.setStartTimeApi(Date.now());
+              this.agenciesService.setAgencies(response.data as IAgencie[])
+              return response.data as IAgencie[]
+            })
           )
         } else {
           console.log('NO EXPIRÓ, DEVUELVE INFORMACIÓN DESDE LOCALSTORAGE')
