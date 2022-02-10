@@ -13,6 +13,7 @@ import { AgencieDetailComponent } from './agencie-detail/agencie-detail.componen
 })
 export class AgenciesComponent implements OnInit {
 
+  searchTerm = '';
   geolocation!: google.maps.LatLngLiteral;
   agencies!: IAgencie[];
   constructor(public dialog: MatDialog, private agenciesService: AgenciesService, private splashScreenStateService: SplashScreenStateService) { }
@@ -32,6 +33,13 @@ export class AgenciesComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result: IAgencie) => {
       this.agencies = this.agenciesService.getAgenciesFromLocalStorage()
     });
+  }
+
+  handleSearch(r: any) {
+    console.log('handleSearch', r)
+    if (r.action === 'SEARCH') {
+      this.agencies = []
+    }
   }
 
 }
