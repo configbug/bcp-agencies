@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { IAgencie } from 'src/app/interfaces/agencies.interface';
 import { IResponse } from 'src/app/interfaces/response.interface';
 import { AgenciesService } from 'src/app/services/agencies.service';
@@ -13,7 +13,6 @@ import { TGeolocation } from 'src/app/types/geolocation.type';
 })
 export class ListAgenciesComponent implements OnInit, OnChanges {
   @Output() updateMapEvent = new EventEmitter<google.maps.LatLngLiteral>();
-  @Output() viewAgencieEvent = new EventEmitter<IAgencie>();
   @Output() refreshListAgenciesEvent = new EventEmitter<IAgencie[]>();
 
   @Input() listaAgencies!: IAgencie[];
@@ -30,7 +29,7 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
   showActionsList: boolean = false
   listAgencies: IAgencie[] = [];
 
-  constructor(private agenciesService: AgenciesService, private activatedRoute: ActivatedRoute) {
+  constructor(private agenciesService: AgenciesService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.activatedRoute.data.subscribe(({ agencies }) => {
       this.listAgencies = agencies;
     });
@@ -46,9 +45,6 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
     }
   }
 
-
-  // showInfo(change: MatSelectionListChange) {
-  // let obj: IAgencie = change.options[0].value;
   showInfo(agencie: IAgencie) {
     let geolocation = { lat: agencie.lon, lng: agencie.lat }
     this.updateMapEvent.emit(geolocation);
@@ -57,10 +53,11 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
   viewAgencie(agencie?: IAgencie) {
     if (agencie) {
       this.agenciesService.get(agencie.agencia).subscribe((response: IResponse) => {
-        this.viewAgencieEvent.emit(response.data as IAgencie);
+        this.router.navigate(["/agencies/edit"], { state: { agencie: { ...agencie } } });
       })
     } else {
-      this.viewAgencieEvent.emit();
+      this.router.navigate(["/agencies/new"], { state: { agencie: null } });
+
     }
   }
 }

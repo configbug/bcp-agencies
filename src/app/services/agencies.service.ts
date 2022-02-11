@@ -57,7 +57,17 @@ export class AgenciesService {
       lon: Number(agencie.lon),
     }
 
-    return this.http.post<IResponse>(`${this.url}`, request, { headers: this.headers }).pipe();
+    const listAgencies = this.getAgenciesFromLocalStorage();
+
+    listAgencies.unshift(request)
+
+    this.setAgencies(listAgencies);
+
+    return of({
+      isSuccess: true,
+      errorCode: "",
+      errorMessage: "",
+    })
   }
 
   update(agencie: IAgencie): Observable<IResponse> {
