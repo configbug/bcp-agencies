@@ -1,11 +1,24 @@
-<mat-selection-list *ngIf="listAgencies && listAgencies.length > 0" #agencies [multiple]="false"
-  (selectionChange)="showInfo($event)">
-  <mat-list-option *ngFor="let agencie of listAgencies" [value]="agencie">
+<mat-nav-list *ngIf="listAgencies && listAgencies.length > 0" #agencies>
+  <mat-list-item *ngFor="let agencie of listAgencies" (click)="showInfo(agencie)">
     <svg matListAvatar width="100" height="100" [data-jdenticon-value]="agencie.agencia"></svg>
     <h3 matLine class="title-agencie"> {{agencie.agencia}} </h3>
     <p matLine class="subtitle-agencie">
       <span> {{agencie.direccion}} </span>
     </p>
-    <button class="btn-detail" matLine mat-button color="primary" (click)="viewAgencie(agencie)">Más detalles</button>
-  </mat-list-option>
-</mat-selection-list>
+    <button *ngIf="!showActionsList" class="btn-detail" matLine mat-button color="primary"
+      (click)="viewAgencie(agencie)">Más detalles</button>
+    <ng-container *ngIf="showActionsList">
+      <button mat-icon-button color="primary" (click)="viewAgencie(agencie)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" (click)="viewAgencie(agencie)">
+        <mat-icon>star</mat-icon>
+      </button>
+    </ng-container>
+  </mat-list-item>
+  <div (window:resize)="onResize($event)" class="position-absolute" style="z-index: 20; bottom: -20px; right: -20px;">
+    <button mat-fab color="primary" (click)="viewAgencie()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</mat-nav-list>

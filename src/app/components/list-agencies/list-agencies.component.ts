@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute } from '@angular/router';
 import { IAgencie } from 'src/app/interfaces/agencies.interface';
@@ -17,8 +17,17 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
   @Output() refreshListAgenciesEvent = new EventEmitter<IAgencie[]>();
 
   @Input() listaAgencies!: IAgencie[];
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    const sizeWindows = event.target.innerWidth;
+    if (sizeWindows <= 992) {
+      this.showActionsList = true;
+    } else {
+      this.showActionsList = false;
+    }
+  }
 
-
+  showActionsList: boolean = false
   listAgencies: IAgencie[] = [];
 
   constructor(private agenciesService: AgenciesService, private activatedRoute: ActivatedRoute) {
@@ -37,15 +46,21 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
     }
   }
 
-  showInfo(change: MatSelectionListChange) {
-    let obj: IAgencie = change.options[0].value;
-    let geolocation = { lat: obj.lon, lng: obj.lat }
+
+  // showInfo(change: MatSelectionListChange) {
+  // let obj: IAgencie = change.options[0].value;
+  showInfo(agencie: IAgencie) {
+    let geolocation = { lat: agencie.lon, lng: agencie.lat }
     this.updateMapEvent.emit(geolocation);
   }
 
-  viewAgencie(agencie: IAgencie) {
-    this.agenciesService.get(agencie.agencia).subscribe((response: IResponse) => {
-      this.viewAgencieEvent.emit(response.data as IAgencie);
-    })
+  viewAgencie(agencie?: IAgencie) {
+    if (agencie) {
+      this.agenciesService.get(agencie.agencia).subscribe((response: IResponse) => {
+        this.viewAgencieEvent.emit(response.data as IAgencie);
+      })
+    } else {
+      this.viewAgencieEvent.emit();
+    }
   }
 }
