@@ -3,8 +3,8 @@ mat-nav-list {
   overflow: auto;
 }
 
-.mat-list-item:nth-child(2n+1){
-  background-color:rgb(240, 240, 240);
+.mat-list-item:nth-child(2n+1) {
+  background-color: rgb(240, 240, 240);
 }
 
 h3.title-agencie {
@@ -23,6 +23,12 @@ h3.title-agencie {
 }
 
 
-.btn-detail{
+.btn-detail {
   width: 100px;
+}
+
+.custom-fab {
+  z-index: 20;
+  bottom: -20px;
+  right: -20px;
 }

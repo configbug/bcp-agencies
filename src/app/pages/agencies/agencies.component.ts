@@ -21,10 +21,15 @@ export class AgenciesComponent implements OnInit {
     this.geolocation = item;
   }
 
-  handleSearch(r: any) {
-    console.log('handleSearch', r)
-    if (r.action === 'SEARCH') {
-      this.agencies = []
+  handleSearch(event: any) {
+    if (event.action === 'SEARCH') {
+      this.agenciesService.list().subscribe(response => {
+        this.agencies = ((response.data) as IAgencie[]).filter(agencie => agencie.agencia.includes(event.query))
+      })
+    } else {
+      this.agenciesService.list().subscribe(response => {
+        this.agencies = ((response.data) as IAgencie[])
+      })
     }
   }
 

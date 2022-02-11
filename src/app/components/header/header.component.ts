@@ -41,7 +41,7 @@ export class HeaderComponent implements OnInit {
 
   search() {
     const searchTerm = this.searchInput.nativeElement.value;
-    this.searchEvent.emit({ query: searchTerm, action: 'SEARCH' });
     this.interactedWithSearch = true;
+    this.searchEvent.emit({ query: searchTerm, action: 'SEARCH' });
   }
 }
