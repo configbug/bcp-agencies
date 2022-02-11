@@ -5,18 +5,15 @@
     <p matLine class="subtitle-agencie">
       <span> {{agencie.direccion}} </span>
     </p>
-    <button *ngIf="!showActionsList" class="btn-detail" matLine mat-button color="primary"
-      (click)="viewAgencie(agencie)">Más detalles</button>
-    <ng-container *ngIf="showActionsList">
-      <button mat-icon-button color="primary" (click)="viewAgencie(agencie)">
-        <mat-icon>edit</mat-icon>
-      </button>
-      <button mat-icon-button color="primary" (click)="viewAgencie(agencie)">
-        <mat-icon>star</mat-icon>
-      </button>
-    </ng-container>
+    <button class="btn-detail" matLine mat-button color="primary" (click)="viewAgencie(agencie)">Más detalles</button>
+    <button class="button-action" mat-icon-button color="primary" (click)="viewAgencie(agencie)">
+      <mat-icon>visibility</mat-icon>
+    </button>
+    <button class="button-action" mat-icon-button color="primary" (click)="viewMap(agencie)">
+      <mat-icon>fmd_good</mat-icon>
+    </button>
   </mat-list-item>
-  <div (window:resize)="onResize($event)" class="position-absolute custom-fab">
+  <div class="position-absolute custom-fab">
     <button mat-fab color="primary" (click)="viewAgencie()">
       <mat-icon>add</mat-icon>
     </button>

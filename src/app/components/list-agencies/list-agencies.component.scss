@@ -25,10 +25,26 @@ h3.title-agencie {
 
 .btn-detail {
   width: 100px;
+  display: block;
 }
 
 .custom-fab {
   z-index: 20;
   bottom: -20px;
   right: -20px;
+}
+
+
+.button-action {
+  display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .button-action {
+    display: block !important;
+  }
+
+  .btn-detail {
+    display: none !important;
+  }
 }

@@ -1,10 +1,8 @@
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { IAgencie } from 'src/app/interfaces/agencies.interface';
 import { IResponse } from 'src/app/interfaces/response.interface';
 import { AgenciesService } from 'src/app/services/agencies.service';
-import { TGeolocation } from 'src/app/types/geolocation.type';
 
 @Component({
   selector: 'app-list-agencies',
@@ -16,17 +14,7 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
   @Output() refreshListAgenciesEvent = new EventEmitter<IAgencie[]>();
 
   @Input() listaAgencies!: IAgencie[];
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    const sizeWindows = event.target.innerWidth;
-    if (sizeWindows <= 992) {
-      this.showActionsList = true;
-    } else {
-      this.showActionsList = false;
-    }
-  }
 
-  showActionsList: boolean = false
   listAgencies: IAgencie[] = [];
 
   constructor(private agenciesService: AgenciesService, private router: Router, private activatedRoute: ActivatedRoute) {
@@ -36,7 +24,7 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.updateMapEvent.emit({ lat: this.listAgencies[0].lon, lng: this.listAgencies[0].lat });
+    this.updateMapEvent.emit({ lat: this.listAgencies[0].lat, lng: this.listAgencies[0].lon });
   }
 
   ngOnChanges() {
@@ -46,7 +34,7 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
   }
 
   showInfo(agencie: IAgencie) {
-    let geolocation = { lat: agencie.lon, lng: agencie.lat }
+    let geolocation = { lat: agencie.lat, lng: agencie.lon }
     this.updateMapEvent.emit(geolocation);
   }
 
@@ -59,5 +47,9 @@ export class ListAgenciesComponent implements OnInit, OnChanges {
       this.router.navigate(["/agencies/new"], { state: { agencie: null } });
 
     }
+  }
+
+  viewMap(agencie?: IAgencie) {
+    this.router.navigate(["/agencies-map"], { state: { agencie: { ...agencie } } });
   }
 }

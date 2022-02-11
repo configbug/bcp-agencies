@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MapAgenciesComponent } from './components/map-agencies/map-agencies.component';
 import { AgenciesResolver } from './core/resolvers/agencies.resolver';
 import { AgencieDetailComponent } from './pages/agencies/agencie-detail/agencie-detail.component';
+import { AgencieMapComponent } from './pages/agencies/agencie-map/agencie-map.component';
 import { AgenciesComponent } from './pages/agencies/agencies.component';
 const routes: Routes = [
    {
@@ -15,8 +15,8 @@ const routes: Routes = [
       component: AgencieDetailComponent,
    },
    {
-      path: 'agencies/map',
-      component: MapAgenciesComponent,
+      path: 'agencies-map',
+      component: AgencieMapComponent,
    },
    {
       path: '',

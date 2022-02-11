@@ -23,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MapAgenciesComponent } from './components/map-agencies/map-agencies.component';
 
 import { AgencieDetailComponent } from './pages/agencies/agencie-detail/agencie-detail.component';
+import { AgencieMapComponent } from './pages/agencies/agencie-map/agencie-map.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AgencieDetailComponent } from './pages/agencies/agencie-detail/agencie-
     HeaderComponent,
     FooterComponent,
     MapAgenciesComponent,
-    AgencieDetailComponent
+    AgencieDetailComponent,
+    AgencieMapComponent
   ],
   imports: [
     BrowserModule,

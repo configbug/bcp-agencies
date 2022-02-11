@@ -39,7 +39,6 @@ export class AgencieDetailComponent implements OnInit {
       }
       //@ts-ignore
       const agencie = data.agencie as IAgencie;
-      console.log('AGENCIA', agencie)
       this.title = `ACTUALIZAR AGENCIA "${agencie.agencia.toUpperCase()}"`;
       this.agencieRequest = { ...agencie };
     }
