@@ -1,0 +1,94 @@
+<app-header (searchEvent)="handleSearch($event)"></app-header>
+<div class="container">
+  <div class="title-edit-agencie">
+    {{title}}
+  </div>
+  <form id="formMaintenance" [formGroup]="form" (ngSubmit)="submitForm()" novalidate>
+    <div *ngIf="agencieRequest" class="row">
+      <div *ngIf="fromType.toLowerCase() === 'new'" class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Agencia</mat-label>
+          <input matInput placeholder="Agencia" formControlName="agencia" required>
+          <mat-error *ngIf="errorHandling('agencia', 'required')">
+            El nombre de <strong>agencia</strong> es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="errorHandling('agencia', 'minlength')">
+            Mínimo 10 carácteres para el nombre de <strong>agencia</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('agencia', 'maxlength')">
+            Mínimo 60 carácteres para el nombre de <strong>agencia</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Departamento</mat-label>
+          <input matInput placeholder="Departamento" formControlName="departamento" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Provincia</mat-label>
+          <input matInput placeholder="Provincia" formControlName="provincia" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Distrito</mat-label>
+          <input matInput placeholder="Distrito" formControlName="distrito" required>
+          <mat-error *ngIf="errorHandling('distrito', 'required')">
+            El nombre de <strong>distrito</strong> de agencia es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="errorHandling('distrito', 'minlength')">
+            Mínimo 10 carácteres para el nombre de <strong>distrito</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('distrito', 'maxlength')">
+            Mínimo 60 carácteres para el nombre de <strong>distrito</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Dirección</mat-label>
+          <input matInput placeholder="Dirección" formControlName="direccion" required>
+          <mat-error *ngIf="errorHandling('direccion', 'required')">
+            La <strong>dirección</strong> de agencia es obligatorio.
+          </mat-error>
+          <mat-error *ngIf="errorHandling('direccion', 'minlength')">
+            Mínimo 10 carácteres para el nombre de <strong>dirección</strong>
+          </mat-error>
+          <mat-error *ngIf="errorHandling('direccion', 'maxlength')">
+            Mínimo 60 carácteres para el nombre de <strong>dirección</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Latitud</mat-label>
+          <input matInput placeholder="Latitud" formControlName="lat" required>
+          <mat-error *ngIf="errorHandling('lat', 'required')">
+            La <strong>latitud</strong> de agencia es obligatorio.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6 col-12">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Longitud</mat-label>
+          <input matInput placeholder="Longitud" formControlName="lon" required>
+          <mat-error *ngIf="errorHandling('lon', 'required')">
+            La <strong>longitud</strong> de agencia es obligatorio.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-lg-12 text-end">
+        <button type="button" mat-raised-button (click)="cancel()">Cancelar</button>
+        <button type="submit" color="primary" form="formMaintenance" mat-raised-button cdkFocusInitial>Guardar</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,12 @@
+<app-header (searchEvent)="handleSearch($event)"></app-header>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 position-relative">
+      <app-list-agencies (updateMapEvent)="updateMap($event)" [listaAgencies]="agencies"></app-list-agencies>
+    </div>
+    <div class="col-lg-8 map-container">
+      <app-map-agencies [geolocation]="geolocation"></app-map-agencies>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

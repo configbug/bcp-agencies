@@ -1,0 +1,21 @@
+<mat-nav-list *ngIf="listAgencies && listAgencies.length > 0" #agencies>
+  <mat-list-item *ngFor="let agencie of listAgencies" (click)="showInfo(agencie)">
+    <svg matListAvatar width="100" height="100" [data-jdenticon-value]="agencie.agencia"></svg>
+    <h3 matLine class="title-agencie"> {{agencie.agencia}} </h3>
+    <p matLine class="subtitle-agencie">
+      <span> {{agencie.direccion}} </span>
+    </p>
+    <button class="btn-detail" matLine mat-button color="primary" (click)="viewAgencie(agencie)">Más detalles</button>
+    <button class="button-action" mat-icon-button color="primary" (click)="viewAgencie(agencie)">
+      <mat-icon>visibility</mat-icon>
+    </button>
+    <button class="button-action" mat-icon-button color="primary" (click)="viewMap(agencie)">
+      <mat-icon>fmd_good</mat-icon>
+    </button>
+  </mat-list-item>
+  <div class="position-absolute custom-fab">
+    <button mat-fab color="primary" (click)="viewAgencie()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</mat-nav-list>

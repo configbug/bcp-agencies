@@ -1,0 +1,50 @@
+mat-nav-list {
+  max-height: 600px;
+  overflow: auto;
+}
+
+.mat-list-item:nth-child(2n+1) {
+  background-color: rgb(240, 240, 240);
+}
+
+h3.title-agencie {
+  font-size: 18px !important;
+  font-weight: bold !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+.subtitle-agencie {
+  font-size: 16px !important;
+  text-overflow: ellipsis !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+
+.btn-detail {
+  width: 100px;
+  display: block;
+}
+
+.custom-fab {
+  z-index: 20;
+  bottom: -20px;
+  right: -20px;
+}
+
+
+.button-action {
+  display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .button-action {
+    display: block !important;
+  }
+
+  .btn-detail {
+    display: none !important;
+  }
+}
